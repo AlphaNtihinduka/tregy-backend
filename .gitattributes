@@ -1,0 +1,4 @@
+# CI and the Docker build run mvnw on Linux; CRLF breaks the shebang.
+mvnw text eol=lf
+*.sh text eol=lf
+mvnw.cmd text eol=crlf
