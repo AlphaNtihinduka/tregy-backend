@@ -1,0 +1,3 @@
+package com.tregy.backend.config;
+import jakarta.servlet.*;import jakarta.servlet.http.*;import org.springframework.stereotype.Component;import org.springframework.web.filter.OncePerRequestFilter;import java.io.IOException;import java.util.UUID;
+@Component public class RequestIdFilter extends OncePerRequestFilter{public static final String ATTRIBUTE="tregy.requestId";protected void doFilterInternal(HttpServletRequest req,HttpServletResponse res,FilterChain chain)throws ServletException,IOException{String value=req.getHeader("X-Request-Id");String id=value!=null&&value.matches("[A-Za-z0-9._-]{1,100}")?value:UUID.randomUUID().toString();req.setAttribute(ATTRIBUTE,id);res.setHeader("X-Request-Id",id);chain.doFilter(req,res);}}

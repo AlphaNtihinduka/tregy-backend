@@ -11,22 +11,25 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 
 // This class only decides "signed in or not" (and PLATFORM_ADMIN on /api/v1/platform/**).
-// Who may see another user's data is decided in the service layer through
-// RelationshipAccess (ADR 0006), never here.
+// Every user reaches only their own data; that is enforced in the repository queries
+// (see AGENTS.md), never here.
 //
-// Public allow-list (tregy-auth-guardrails): health now; the account endpoints and the
-// invite preview are added by the phases that build them. Anything that falls through is
-// denied, so a new endpoint without a matcher fails closed.
-//
-// Phase 1 adds the JWT filter and the rate-limiting filter to this chain.
+// Public allow-list: health and the account endpoints (register, verify, login, refresh,
+// logout, password recovery). Anything that falls through is denied, so a new endpoint
+// without a matcher fails closed.
 @Configuration
 @AllArgsConstructor
 public class SecurityConfig {
 
     private final JsonAuthenticationEntryPoint jsonAuthenticationEntryPoint;
     private final JsonAccessDeniedHandler jsonAccessDeniedHandler;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final RequestIdFilter requestIdFilter;
+    private final RateLimitingFilter rateLimitingFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -48,10 +51,17 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/health", "/actuator/health/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/health").permitAll()
+                        .requestMatchers("/api/v1/auth/register", "/api/v1/auth/verify-email",
+                                "/api/v1/auth/resend-verification", "/api/v1/auth/login",
+                                "/api/v1/auth/refresh", "/api/v1/auth/logout",
+                                "/api/v1/auth/forgot-password", "/api/v1/auth/reset-password").permitAll()
                         .requestMatchers("/api/v1/platform/**").hasRole("PLATFORM_ADMIN")
                         .requestMatchers("/api/v1/**").authenticated()
                         .anyRequest().denyAll()
-                );
+                )
+                .addFilterBefore(requestIdFilter, SecurityContextHolderFilter.class)
+                .addFilterAfter(rateLimitingFilter, RequestIdFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
