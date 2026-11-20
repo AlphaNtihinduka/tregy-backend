@@ -9,6 +9,9 @@ import com.tregy.backend.model.enums.ContentStatus;
 import com.tregy.backend.repository.ContentItemRepository;
 import com.tregy.backend.repository.ThemeRepository;
 import com.tregy.backend.service.ContentPublishingService;
+import com.tregy.backend.service.support.content.ReviewCsv;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.json.JsonMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +25,11 @@ public class ContentPublishingServiceImpl implements ContentPublishingService {
     private final ContentItemRepository items;
     private final ThemeRepository themes;
     private final Clock clock;
+    private final JsonMapper json;
 
-    public ContentPublishingServiceImpl(ContentItemRepository items, ThemeRepository themes, Clock clock) {
+    public ContentPublishingServiceImpl(ContentItemRepository items, ThemeRepository themes, Clock clock,
+                                        JsonMapper json) {
+        this.json = json;
         this.items = items;
         this.themes = themes;
         this.clock = clock;
@@ -57,6 +63,21 @@ public class ContentPublishingServiceImpl implements ContentPublishingService {
         int safeSize = Math.max(1, Math.min(size, 200));
         return items.findByStatusOrderByCreatedAtDesc(ContentStatus.VALIDATED, PageRequest.of(Math.max(page, 0), safeSize))
                 .map(ContentPublishingServiceImpl::toResponse).getContent();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public String reviewExport(String sourceLang, String targetLang, String level, String theme, String status,
+                               int limit) {
+        int safeLimit = Math.max(1, Math.min(limit, 200));
+        return ReviewCsv.of(items.randomSample(blankToNull(sourceLang), blankToNull(targetLang), blankToNull(level),
+                        blankToNull(theme), blankToNull(status), safeLimit),
+                accepted -> json.readValue(accepted, new TypeReference<List<String>>() {
+                }));
+    }
+
+    private static String blankToNull(String value) {
+        return value == null || value.isBlank() ? null : value;
     }
 
     private static ContentItemResponseDTO toResponse(ContentItem i) {

@@ -215,6 +215,10 @@ Operators. Body `{ "sourceLang", "targetLang", "level", "theme" }`. Publishes ev
 
 Operators. Takes an item out of circulation (only its status changes; its text and difficulty never do). `404 NOT_FOUND` for an unknown id. Phones that hold the pack drop the item on their next download.
 
+### GET /api/v1/platform/content-items/export
+
+Operators. A random sample as `text/csv` (UTF-8, attachment) for a native speaker to check in a spreadsheet. Optional filters `sourceLang`, `targetLang`, `level`, `theme`, `status`; `limit` (default 50, max 200). Columns: id, source_lang, target_lang, level, theme, kind, difficulty, status, source_text, target_text, accepted, and empty `verdict` and `notes` columns for the reviewer. A cell that starts with `=`, `+`, `-` or `@` gets a leading apostrophe so it can never run as a spreadsheet formula.
+
 ## Content packs (phones)
 
 Any signed-in user. Published content only, no user data.

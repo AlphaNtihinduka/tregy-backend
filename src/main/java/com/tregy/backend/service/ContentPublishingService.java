@@ -16,4 +16,7 @@ public interface ContentPublishingService {
 
     /** The review queue: items waiting to be published, newest first. */
     List<ContentItemResponseDTO> reviewQueue(int page, int size);
+
+    /** A random sample as CSV for a native speaker. Filters are optional; limit is capped at 200. */
+    String reviewExport(String sourceLang, String targetLang, String level, String theme, String status, int limit);
 }

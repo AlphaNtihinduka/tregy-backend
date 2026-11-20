@@ -173,4 +173,27 @@ class ContentPackIntegrationTest extends BaseIntegrationTest {
         mvc.perform(post("/api/v1/platform/content-items/nope/withdraw").header("Authorization", admin))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void shouldExportASampleAsCsvForReviewAndKeepAccents() throws Exception {
+        String admin = signIn("admin", true);
+        String user = signIn("user", false);
+        generate(admin, "INTERMEDIATE", "food", "WORD");
+        String csv = mvc.perform(get("/api/v1/platform/content-items/export?theme=food&limit=3")
+                        .header("Authorization", admin))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type", containsString("text/csv")))
+                .andReturn().getResponse().getContentAsString(java.nio.charset.StandardCharsets.UTF_8);
+        String[] lines = csv.split("\r\n");
+        assertEquals(4, lines.length);
+        assertTrue(lines[0].startsWith("id,source_lang,target_lang,level,theme,kind,difficulty,status,source_text"));
+        assertTrue(lines[0].endsWith("verdict,notes"));
+        assertTrue(lines[1].endsWith(",,"), "verdict and notes are left blank for the reviewer");
+        mvc.perform(get("/api/v1/platform/content-items/export").header("Authorization", user))
+                .andExpect(status().isForbidden());
+        // A filter that matches nothing is just the header.
+        String empty = mvc.perform(get("/api/v1/platform/content-items/export?theme=dating").header("Authorization", admin))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(1, empty.split("\r\n").length);
+    }
 }

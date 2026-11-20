@@ -43,4 +43,14 @@ public interface ContentItemRepository extends JpaRepository<ContentItem, String
 
     List<ContentItem> findBySourceLangAndTargetLangAndLevelAndThemeAndStatusOrderByIdAsc(
             String sourceLang, String targetLang, LearningLevel level, String theme, ContentStatus status);
+
+    /** A random sample for native-speaker review. Every filter is optional (null means any). */
+    @Query(value = "select * from content_item where (cast(:sourceLang as varchar) is null or source_lang = cast(:sourceLang as varchar)) "
+            + "and (cast(:targetLang as varchar) is null or target_lang = cast(:targetLang as varchar)) "
+            + "and (cast(:level as varchar) is null or level = cast(:level as varchar)) "
+            + "and (cast(:theme as varchar) is null or theme = cast(:theme as varchar)) "
+            + "and (cast(:status as varchar) is null or status = cast(:status as varchar)) "
+            + "order by random() limit :limit", nativeQuery = true)
+    List<ContentItem> randomSample(String sourceLang, String targetLang, String level, String theme, String status,
+                                   int limit);
 }
