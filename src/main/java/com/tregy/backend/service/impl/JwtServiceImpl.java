@@ -63,7 +63,7 @@ public class JwtServiceImpl implements JwtService {
         if (secret == null || secret.isBlank()) {
             throw new IllegalStateException("JWT_SECRET is not set. Refusing to start without a signing key.");
         }
-        if (KNOWN_PLACEHOLDERS.contains(secret.strip())) {
+        if (KNOWN_PLACEHOLDERS.contains(secret.strip()) || secret.strip().toLowerCase().startsWith("replace_with")) {
             throw new IllegalStateException(
                     "JWT_SECRET is still a placeholder from .env.example. Generate one with `openssl rand -base64 48`.");
         }
