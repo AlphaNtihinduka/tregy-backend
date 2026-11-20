@@ -171,6 +171,26 @@ Any user. Codes of the caller's chosen themes, sorted: `["food", "travel"]`.
 
 Any user. Replaces the caller's themes. Body `{ "themes": ["travel", "food"] }` (1 to 12 codes). Returns the new sorted list. Error: `UNKNOWN_THEME` (400).
 
+## Progress sync
+
+The phone is authoritative at gate time; the server stores progress so a reinstall or a second phone can restore it (ADR 0007). No answers, recordings, app lists or gate contents are ever sent.
+
+### POST /api/v1/sync/events
+
+Any user. Body `{ "events": [ ... ] }`, 1 to 100 events, each the item's state after an answer:
+
+```json
+{ "clientEventId": "uuid", "itemId": "gen-b-001", "stage": 2, "dueOn": "2026-05-13",
+  "learnedAt": "2026-05-11T10:00:00Z", "lastResult": "correct", "lastCorrectOn": "2026-05-11",
+  "updatedAt": "2026-05-11T10:00:00Z" }
+```
+
+`stage` is 0 to 6; `lastResult` is `correct`, `wrong` or null; `dueOn`, `learnedAt`, `lastCorrectOn` may be null; `itemId` matches `[A-Za-z0-9_.:-]{1,64}`. Returns `200 { "results": [ { "clientEventId", "status", "code" } ] }` in request order. `status` is `ACCEPTED`, `DUPLICATE` (event id already applied; nothing changes) or `REJECTED` with `code` `INVALID_EVENT_ID` or `INVALID_EVENT`. One bad event does not stop the others. Conflict rules: the later `updatedAt` wins the schedule fields; `learnedAt` keeps the earliest value and never clears. A whole batch is `400 VALIDATION_FAILED` if empty or over 100 events. Limited to 60 calls per user per 10 minutes (`429 RATE_LIMITED`).
+
+### GET /api/v1/me/progress
+
+Any user. Query `page` (default 0) and `size` (default 200, capped at 500). Returns `{ "learned", "total", "page", "size", "items": [ { "itemId", "stage", "dueOn", "learnedAt", "lastResult", "lastCorrectOn", "updatedAt" } ] }`, items sorted by `itemId`. `learned` counts every item with a `learnedAt`. Only the caller's own rows are ever returned.
+
 ## Rate limits
 
 `/auth/login`, `/auth/register`, `/auth/refresh`, `/auth/forgot-password` and `/auth/resend-verification` allow 10 requests per address per 10 minutes, plus a per-email limit on login, register and recovery. Exceeding returns `429 RATE_LIMITED` with `Retry-After`.
