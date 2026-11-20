@@ -80,4 +80,7 @@ public class ContentItem {
 
     @Column(name = "published_at")
     private Instant publishedAt;
+
+    @Column(name = "withdrawn_at")
+    private Instant withdrawnAt;
 }

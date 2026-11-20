@@ -203,6 +203,30 @@ Body `{ "sourceLang": "it", "targetLang": "en", "level": "BEGINNER|INTERMEDIATE|
 
 Most recent runs first; `limit` (default 20, max 100).
 
+### GET /api/v1/platform/content-items/review
+
+Operators. Items waiting to be published (`VALIDATED`), newest first; `page`, `size` (default 50, max 200).
+
+### POST /api/v1/platform/content/publish
+
+Operators. Body `{ "sourceLang", "targetLang", "level", "theme" }`. Publishes every validated item in that bucket; returns `{ "published": n }` (0 when there is nothing to publish, so it is safe to repeat). Published items are never edited.
+
+### POST /api/v1/platform/content-items/{id}/withdraw
+
+Operators. Takes an item out of circulation (only its status changes; its text and difficulty never do). `404 NOT_FOUND` for an unknown id. Phones that hold the pack drop the item on their next download.
+
+## Content packs (phones)
+
+Any signed-in user. Published content only, no user data.
+
+### GET /api/v1/content/packs
+
+Query `sourceLang`, `targetLang`, `levels` (comma separated, 1 to 3 of `BEGINNER`, `INTERMEDIATE`, `ADVANCED`) and `themes` (comma separated, up to 20; the `general` pack is always included). Returns `[ { "packId": "it-en-BEGINNER-food", "theme", "level", "version", "itemCount" } ]`. `version` is milliseconds since the epoch of the pack's latest publish or withdrawal; it only rises, so a phone downloads again only when it is higher than the one it holds. Packs with no published items are left out. Errors (400): `INVALID_DIRECTION`, `INVALID_PACK_QUERY`.
+
+### GET /api/v1/content/packs/{packId}
+
+Returns `{ "packId", "version", "theme", "level", "languages": ["it","en"], "entries": [ { "id", "pos", "difficulty", "text": { "it": "...", "en": "..." }, "accepted": { "en": ["..."] } } ] }`. `404 NOT_FOUND` if the id is malformed or the pack has no published items. Entry ids are stable, so progress on an item survives a pack update.
+
 ## Rate limits
 
 `/auth/login`, `/auth/register`, `/auth/refresh`, `/auth/forgot-password` and `/auth/resend-verification` allow 10 requests per address per 10 minutes, plus a per-email limit on login, register and recovery. Exceeding returns `429 RATE_LIMITED` with `Retry-After`.
