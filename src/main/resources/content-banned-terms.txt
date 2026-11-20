@@ -1,0 +1,24 @@
+# Whole words the content filter refuses, one per line, lower case, accents folded.
+# English and Italian profanity and slurs. Extend freely; a native speaker should review this list.
+shit
+fuck
+fucking
+bitch
+bastard
+asshole
+cunt
+dick
+slut
+whore
+nigger
+faggot
+cazzo
+merda
+stronzo
+puttana
+troia
+minchia
+vaffanculo
+figa
+negro
+frocio

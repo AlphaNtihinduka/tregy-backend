@@ -191,6 +191,18 @@ Any user. Body `{ "events": [ ... ] }`, 1 to 100 events, each the item's state a
 
 Any user. Query `page` (default 0) and `size` (default 200, capped at 500). Returns `{ "learned", "total", "page", "size", "items": [ { "itemId", "stage", "dueOn", "learnedAt", "lastResult", "lastCorrectOn", "updatedAt" } ] }`, items sorted by `itemId`. `learned` counts every item with a `learnedAt`. Only the caller's own rows are ever returned.
 
+## Content generation (operators)
+
+Only `PLATFORM_ADMIN` accounts. Anyone else gets `403`; no token gets `401`. Generation is a server-side batch job: the app never calls a model (ADR 0003). Only a fake provider exists for now (no network, no key).
+
+### POST /api/v1/platform/generation-runs
+
+Body `{ "sourceLang": "it", "targetLang": "en", "level": "BEGINNER|INTERMEDIATE|ADVANCED", "theme": "food", "kind": "WORD|PHRASE|SENTENCE", "count": 1-500 }`. Generates, validates in code and stores items for that bucket as `VALIDATED`; re-running tops up and never duplicates. Returns `201` with the run: counts (`generatedCount`, `acceptedCount`, `rejectedCount`), `rejections` (reason code to count), `status` (`COMPLETED`, `STOPPED_BUDGET`, `FAILED`), `promptVersion`, `modelId`, `costMicroUsd`. Errors (400): `INVALID_DIRECTION`, `UNKNOWN_THEME`, `RUN_TOO_LARGE` (over `MAX_ITEMS_PER_RUN`), `VALIDATION_FAILED`. A spent monthly budget returns a run with `STOPPED_BUDGET` and nothing generated. Rejection reasons: `MISSING_FIELD`, `BAD_POS`, `TOO_SHORT`, `TOO_LONG`, `WRONG_LANGUAGE`, `DUPLICATE`, `NEAR_DUPLICATE`, `BAD_DISTRACTORS`, `BAD_ACCEPTED_VARIANTS`, `UNSAFE`, `TOO_HARD`.
+
+### GET /api/v1/platform/generation-runs
+
+Most recent runs first; `limit` (default 20, max 100).
+
 ## Rate limits
 
 `/auth/login`, `/auth/register`, `/auth/refresh`, `/auth/forgot-password` and `/auth/resend-verification` allow 10 requests per address per 10 minutes, plus a per-email limit on login, register and recovery. Exceeding returns `429 RATE_LIMITED` with `Retry-After`.
