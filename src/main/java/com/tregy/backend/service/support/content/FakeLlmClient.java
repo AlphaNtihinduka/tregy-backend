@@ -1,5 +1,7 @@
 package com.tregy.backend.service.support.content;
 
+import com.tregy.backend.model.enums.ContentKind;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -94,8 +96,11 @@ public class FakeLlmClient implements LlmClient {
             if (existing.contains(target.toLowerCase(Locale.ROOT))) {
                 continue;
             }
+            // Phrases are few per theme, so their wrong options come from every theme's phrases.
+            List<Entry> pool = request.kind() == ContentKind.PHRASE
+                    ? PHRASES.values().stream().flatMap(List::stream).toList() : stock;
             items.add(new GeneratedItem(entry.pos(), text(entry, request.sourceLang()), target,
-                    List.of(target), distractors(stock, entry, request.targetLang())));
+                    List.of(target), distractors(pool, entry, request.targetLang())));
         }
         // A rough size so the budget logic has something to count; the fake costs nothing.
         return new Result(items, 200L + request.existingTargets().size() * 4L, 60L * items.size());
