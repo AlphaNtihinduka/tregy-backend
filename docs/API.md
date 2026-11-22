@@ -120,6 +120,18 @@ Any user. Returns the user object shown above.
 
 Any user. Body `{ "uiLanguage": "en" | "it" }` (field optional). Returns the user.
 
+### DELETE /api/v1/me
+
+Any user, for their own account only (there is no id in the path). Deletes the account and everything that belongs to it: devices, refresh and recovery tokens, the learning profile and themes, all schedule state and all sync events. Nothing about the user is kept (no copy of the email or its hash), so the email can register again at once. Content and generation runs are not user data and stay; for runs started by an administrator the creator link is cleared. Rules: ADR 0009.
+
+Body (the caller's own password is required, so a stolen access token alone cannot delete the account):
+
+```json
+{ "password": "correct-horse-battery" }
+```
+
+`204` with no body on success. Every access token and refresh token of the account stops working at once; a second call gets `401`. Errors: `400` (no password), `401 INVALID_CREDENTIALS` (wrong password, nothing deleted; also `UNAUTHENTICATED` without a valid token), `429 RATE_LIMITED` (5 password attempts per account per 10 minutes, with `Retry-After`).
+
 ## Learning profile and themes
 
 ### GET /api/v1/me/profile
@@ -233,4 +245,4 @@ Returns `{ "packId", "version", "theme", "level", "languages": ["it","en"], "ent
 
 ## Rate limits
 
-`/auth/login`, `/auth/register`, `/auth/refresh`, `/auth/forgot-password` and `/auth/resend-verification` allow 10 requests per address per 10 minutes, plus a per-email limit on login, register and recovery. Exceeding returns `429 RATE_LIMITED` with `Retry-After`.
+`/auth/login`, `/auth/register`, `/auth/refresh`, `/auth/forgot-password` and `/auth/resend-verification` allow 10 requests per address per 10 minutes, plus a per-email limit on login, register and recovery. Exceeding returns `429 RATE_LIMITED` with `Retry-After`. `DELETE /me` allows 5 password attempts per account per 10 minutes.

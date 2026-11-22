@@ -73,7 +73,8 @@ public class GenerationRun {
     @Column(name = "cost_micro_usd", nullable = false)
     private long costMicroUsd;
 
-    @Column(name = "created_by", nullable = false, updatable = false, length = 36)
+    // Cleared (set to null) when the administrator's account is deleted; see ADR 0009.
+    @Column(name = "created_by", updatable = false, length = 36)
     private String createdBy;
 
     @Column(name = "created_at", nullable = false, updatable = false)
