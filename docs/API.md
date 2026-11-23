@@ -70,7 +70,7 @@ Errors: `EMAIL_ALREADY_EXISTS` (409), `VALIDATION_FAILED` (400), `RATE_LIMITED` 
 
 ### POST /api/v1/auth/login
 
-**Public.** Rate limited. Body `{ "email", "password", "installationId" }`. Login works before email verification.
+**Public.** Rate limited. Body `{ "email", "password", "installationId" }`. Login works before email verification. Signing in with the right password while an account deletion is pending **cancels it** (see `DELETE /me`) and returns `"deletionCancelled": true`; every other sign-in returns `false`. Older clients ignore the field.
 
 `200`:
 
@@ -78,7 +78,8 @@ Errors: `EMAIL_ALREADY_EXISTS` (409), `VALIDATION_FAILED` (400), `RATE_LIMITED` 
 {
   "accessToken": "eyJ…", "accessTokenExpiresAt": "2026-11-19T10:15:00Z",
   "refreshToken": "…", "refreshTokenExpiresAt": "2026-12-19T10:00:00Z",
-  "user": { "id": "…", "email": "ada@example.com", "uiLanguage": "it", "platformRole": "USER", "emailVerifiedAt": null }
+  "user": { "id": "…", "email": "ada@example.com", "uiLanguage": "it", "platformRole": "USER", "emailVerifiedAt": null },
+  "deletionCancelled": false
 }
 ```
 
@@ -122,15 +123,21 @@ Any user. Body `{ "uiLanguage": "en" | "it" }` (field optional). Returns the use
 
 ### DELETE /api/v1/me
 
-Any user, for their own account only (there is no id in the path). Deletes the account and everything that belongs to it: devices, refresh and recovery tokens, the learning profile and themes, all schedule state and all sync events. Nothing about the user is kept (no copy of the email or its hash), so the email can register again at once. Content and generation runs are not user data and stay; for runs started by an administrator the creator link is cleared. Rules: ADR 0009.
+Any user, for their own account only (there is no id in the path). Asks for the account to be **deleted after a grace period** (14 days by default, `ACCOUNT_DELETION_GRACE_DAYS`). Nothing is removed yet. Every session ends at once (access tokens stop working, refresh tokens are revoked). Signing in again with the password before the date cancels the request and restores the account exactly as it was (`POST /auth/login` returns `deletionCancelled: true`). When the period ends a daily job deletes the account and everything that belongs to it: devices, refresh and recovery tokens, the learning profile and themes, all schedule state and all sync events. Nothing about the user is kept (no copy of the email or its hash), so the email can register again after that; until then it is taken (`409 EMAIL_ALREADY_EXISTS`). Content and generation runs are not user data and stay; for runs started by an administrator the creator link is cleared. Rules: ADR 0009.
 
-Body (the caller's own password is required, so a stolen access token alone cannot delete the account):
+Body (the caller's own password is required, so a stolen access token alone cannot start a deletion):
 
 ```json
 { "password": "correct-horse-battery" }
 ```
 
-`204` with no body on success. Every access token and refresh token of the account stops working at once; a second call gets `401`. Errors: `400` (no password), `401 INVALID_CREDENTIALS` (wrong password, nothing deleted; also `UNAUTHENTICATED` without a valid token), `429 RATE_LIMITED` (5 password attempts per account per 10 minutes, with `Retry-After`).
+`202`:
+
+```json
+{ "deletesAt": "2026-12-07T10:00:00Z" }
+```
+
+Errors: `400` (no password), `401 INVALID_CREDENTIALS` (wrong password, nothing scheduled; also `UNAUTHENTICATED` without a valid token, including a second call after the first), `429 RATE_LIMITED` (5 password attempts per account per 10 minutes, with `Retry-After`).
 
 ## Learning profile and themes
 

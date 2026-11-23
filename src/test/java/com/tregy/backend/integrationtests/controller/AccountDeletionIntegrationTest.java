@@ -2,6 +2,7 @@ package com.tregy.backend.integrationtests.controller;
 
 import com.tregy.backend.integrationtests.support.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
+import com.tregy.backend.service.AccountPurgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
@@ -14,11 +15,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/** Account deletion (ADR 0009): everything of the user goes, nothing of anyone else does. */
+/** Account deletion (ADR 0009): a grace period, then everything of the user goes and nothing of anyone else. */
 class AccountDeletionIntegrationTest extends BaseIntegrationTest {
 
     private static final String PASSWORD = "correct-horse-battery";
@@ -31,6 +34,7 @@ class AccountDeletionIntegrationTest extends BaseIntegrationTest {
 
     @Autowired MockMvc mvc;
     @Autowired JdbcTemplate jdbc;
+    @Autowired AccountPurgeService purge;
     private final JsonMapper json = JsonMapper.builder().build();
 
     private record Account(String email, String userId, String auth, String refreshToken) {}
@@ -71,6 +75,30 @@ class AccountDeletionIntegrationTest extends BaseIntegrationTest {
         return json.writeValueAsString(Map.of("password", password));
     }
 
+    /** Asks for deletion with the right password and expects it to be scheduled (202). */
+    private void requestDeletion(Account a) throws Exception {
+        mvc.perform(delete("/api/v1/me").header("Authorization", a.auth()).contentType("application/json")
+                .content(deleteBody(PASSWORD))).andExpect(status().isAccepted());
+    }
+
+    /** Pretends the request was made this many days ago, then runs the daily purge. */
+    private int purgeAfterDays(Account a, int days) {
+        jdbc.update("update app_user set deletion_requested_at = now() - make_interval(days => ?) where id = ?",
+                days, a.userId());
+        return purge.purgeDue();
+    }
+
+    private boolean pending(Account a) {
+        return jdbc.queryForObject("select deletion_requested_at is not null from app_user where id = ?",
+                Boolean.class, a.userId());
+    }
+
+    private void login(Account a, String password, int expected) throws Exception {
+        mvc.perform(post("/api/v1/auth/login").contentType("application/json")
+                .content(json.writeValueAsString(Map.of("email", a.email(), "password", password,
+                        "installationId", "install-" + a.email())))).andExpect(status().is(expected));
+    }
+
     @Test
     void shouldRequireAuthentication() throws Exception {
         mvc.perform(delete("/api/v1/me").contentType("application/json").content(deleteBody(PASSWORD)))
@@ -98,18 +126,26 @@ class AccountDeletionIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldDeleteTheAccountAndEveryRowThatBelongsToItAndNothingElse() throws Exception {
+    void shouldKeepEverythingDuringTheGracePeriodThenDeleteEveryRowThatBelongsToTheAccountAndNothingElse() throws Exception {
         Account gone = account("gone");
         Account kept = account("kept");
+
+        String body = mvc.perform(delete("/api/v1/me").header("Authorization", gone.auth()).contentType("application/json")
+                        .content(deleteBody(PASSWORD)))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.deletesAt").exists()).andReturn().getResponse().getContentAsString();
+        assertNotNull(json.readTree(body).get("deletesAt"));
+
+        // Asking only schedules it: the data is still there, and so is the request time.
+        assertTrue(pending(gone));
         for (String table : USER_TABLES.keySet()) {
-            if (!table.equals("email_verification_token")) {
-                assertEquals(1, rows(table, gone.userId()), "before: " + table);
-            }
+            if (!table.equals("email_verification_token")) assertEquals(1, rows(table, gone.userId()), "during grace: " + table);
         }
+        // Inside the grace period the purge leaves it alone.
+        assertEquals(0, purgeAfterDays(gone, 13));
+        assertEquals(1, rows("app_user", gone.userId()));
 
-        mvc.perform(delete("/api/v1/me").header("Authorization", gone.auth()).contentType("application/json")
-                .content(deleteBody(PASSWORD))).andExpect(status().isNoContent());
-
+        assertEquals(1, purgeAfterDays(gone, 15));
         for (String table : USER_TABLES.keySet()) {
             assertEquals(0, rows(table, gone.userId()), "after: " + table);
         }
@@ -121,33 +157,76 @@ class AccountDeletionIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldStopEveryTokenOfADeletedAccountWorking() throws Exception {
+    void shouldEndEverySessionAtOnceWhenDeletionIsRequested() throws Exception {
         Account a = account("tokens");
-        mvc.perform(delete("/api/v1/me").header("Authorization", a.auth()).contentType("application/json")
-                .content(deleteBody(PASSWORD))).andExpect(status().isNoContent());
+        requestDeletion(a);
 
         mvc.perform(get("/api/v1/me").header("Authorization", a.auth())).andExpect(status().isUnauthorized());
         mvc.perform(post("/api/v1/auth/refresh").contentType("application/json")
                 .content(json.writeValueAsString(Map.of("refreshToken", a.refreshToken()))))
                 .andExpect(status().isUnauthorized());
-        mvc.perform(post("/api/v1/auth/login").contentType("application/json")
-                        .content(json.writeValueAsString(Map.of("email", a.email(), "password", PASSWORD,
-                                "installationId", "install-" + a.email()))))
-                .andExpect(status().isUnauthorized());
-        // A second delete with the old token is simply unauthenticated.
+        // A second request with the old token is simply unauthenticated.
         mvc.perform(delete("/api/v1/me").header("Authorization", a.auth()).contentType("application/json")
                 .content(deleteBody(PASSWORD))).andExpect(status().isUnauthorized());
+        // A wrong password does not sign in and does not cancel anything.
+        login(a, "not-the-password", 401);
+        assertTrue(pending(a));
     }
 
     @Test
-    void shouldLetTheSameEmailRegisterAgainAndStartEmpty() throws Exception {
-        Account a = account("again");
-        mvc.perform(delete("/api/v1/me").header("Authorization", a.auth()).contentType("application/json")
-                .content(deleteBody(PASSWORD))).andExpect(status().isNoContent());
+    void shouldCancelTheDeletionWhenTheOwnerSignsInAgainWithinTheGracePeriod() throws Exception {
+        Account a = account("cancel");
+        requestDeletion(a);
+        assertTrue(pending(a));
 
-        mvc.perform(post("/api/v1/auth/register").contentType("application/json")
-                .content(json.writeValueAsString(Map.of("email", a.email(), "password", PASSWORD,
-                        "uiLanguage", "it", "installationId", "install-" + a.email())))).andExpect(status().isCreated());
+        String body = mvc.perform(post("/api/v1/auth/login").contentType("application/json")
+                        .content(json.writeValueAsString(Map.of("email", a.email(), "password", PASSWORD,
+                                "installationId", "install-" + a.email()))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.deletionCancelled").value(true)).andReturn().getResponse().getContentAsString();
+        String newAuth = "Bearer " + json.readTree(body).get("accessToken").asString();
+
+        assertEquals(false, pending(a));
+        // Everything is as it was (signing in issued one more refresh token, so that table is not compared),
+        // and the purge no longer touches the account.
+        for (String table : USER_TABLES.keySet()) {
+            if (!table.equals("email_verification_token") && !table.equals("refresh_token")) {
+                assertEquals(1, rows(table, a.userId()), table);
+            }
+        }
+        assertEquals(0, purge.purgeDue());
+        mvc.perform(get("/api/v1/me").header("Authorization", newAuth)).andExpect(status().isOk());
+        // An ordinary sign-in reports that nothing was cancelled.
+        mvc.perform(post("/api/v1/auth/login").contentType("application/json")
+                        .content(json.writeValueAsString(Map.of("email", a.email(), "password", PASSWORD,
+                                "installationId", "install-" + a.email()))))
+                .andExpect(jsonPath("$.deletionCancelled").value(false));
+    }
+
+    @Test
+    void shouldNotDeleteAnAccountWhoseOwnerSignedInAfterTheGracePeriodButBeforeThePurgeRan() throws Exception {
+        Account a = account("late");
+        requestDeletion(a);
+        jdbc.update("update app_user set deletion_requested_at = now() - interval '20 days' where id = ?", a.userId());
+        login(a, PASSWORD, 200); // signs in just before the job: cancels
+        assertEquals(0, purge.purgeDue());
+        assertEquals(1, rows("app_user", a.userId()));
+    }
+
+    @Test
+    void shouldHoldTheEmailDuringTheGracePeriodThenLetItRegisterAgainAndStartEmpty() throws Exception {
+        Account a = account("again");
+        requestDeletion(a);
+
+        String registration = json.writeValueAsString(Map.of("email", a.email(), "password", PASSWORD,
+                "uiLanguage", "it", "installationId", "install-" + a.email()));
+        // The account still exists until the grace period ends, so the email is taken.
+        mvc.perform(post("/api/v1/auth/register").contentType("application/json").content(registration))
+                .andExpect(status().isConflict());
+
+        assertEquals(1, purgeAfterDays(a, 15));
+        mvc.perform(post("/api/v1/auth/register").contentType("application/json").content(registration))
+                .andExpect(status().isCreated());
         String newId = jdbc.queryForObject("select id from app_user where email = ?", String.class, a.email());
         assertNotEquals(a.userId(), newId);
         for (String table : USER_TABLES.keySet()) {
@@ -169,8 +248,8 @@ class AccountDeletionIntegrationTest extends BaseIntegrationTest {
                 values (?, 'it', 'en', 'BEGINNER', 'travel', 'WORD', 5, 'COMPLETED', 'p1', 'fake', ?, now())
                 """, runId, admin.userId());
 
-        mvc.perform(delete("/api/v1/me").header("Authorization", admin.auth()).contentType("application/json")
-                .content(deleteBody(PASSWORD))).andExpect(status().isNoContent());
+        requestDeletion(admin);
+        assertEquals(1, purgeAfterDays(admin, 15));
 
         assertEquals(0, rows("app_user", admin.userId()));
         assertEquals(1, jdbc.queryForObject("select count(*) from generation_run where id = ?", Integer.class, runId));

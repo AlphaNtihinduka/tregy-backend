@@ -13,5 +13,5 @@ public class AuthController{
  @PostMapping("/logout-all") ResponseEntity<Void> logoutAll(@AuthenticationPrincipal AppUserPrincipal p){service.logoutAll(p.userId());return ResponseEntity.noContent().build();}
  @PostMapping("/forgot-password") ResponseEntity<Void> forgot(@Valid @RequestBody EmailRequestDTO r){limiter.checkRecovery("forgot",r.email());service.forgotPassword(r.email());return ResponseEntity.accepted().build();}
  @PostMapping("/reset-password") ResponseEntity<Void> reset(@Valid @RequestBody ResetPasswordRequestDTO r){service.resetPassword(r);return ResponseEntity.noContent().build();}
- private static AuthResponseDTO response(AuthSession s){return new AuthResponseDTO(s.accessToken().token(),s.accessToken().expiresAt(),s.refreshToken().token(),s.refreshToken().expiresAt(),s.user());}
+ private static AuthResponseDTO response(AuthSession s){return new AuthResponseDTO(s.accessToken().token(),s.accessToken().expiresAt(),s.refreshToken().token(),s.refreshToken().expiresAt(),s.user(),s.deletionCancelled());}
 }
