@@ -1,0 +1,21 @@
+[
+{"pos":"noun","en":"layover","it":"lo scalo","enAlt":["the layover","stopover"],"itAlt":["scalo","la sosta"]},
+{"pos":"noun","en":"connection","it":"la coincidenza","enAlt":["the connection","connecting flight"],"itAlt":["coincidenza"]},
+{"pos":"noun","en":"surcharge","it":"il sovrapprezzo","enAlt":["the surcharge","extra charge"],"itAlt":["sovrapprezzo","il supplemento"]},
+{"pos":"noun","en":"visa","it":"il visto","enAlt":["the visa"],"itAlt":["visto"]},
+{"pos":"noun","en":"leg","it":"la tratta","enAlt":["the leg","stage","the stage"],"itAlt":["tratta","la tappa","tappa"]},
+{"pos":"noun","en":"excursion","it":"l'escursione","enAlt":["the excursion","hike"],"itAlt":["escursione","la gita"]},
+{"pos":"noun","en":"mountain hut","it":"il rifugio","enAlt":["the mountain hut","shelter","refuge"],"itAlt":["rifugio"]},
+{"pos":"noun","en":"viewpoint","it":"il belvedere","enAlt":["the viewpoint","lookout"],"itAlt":["belvedere"]},
+{"pos":"noun","en":"trail","it":"il sentiero","enAlt":["the trail","path","the path"],"itAlt":["sentiero"]},
+{"pos":"noun","en":"crossing","it":"la traversata","enAlt":["the crossing"],"itAlt":["traversata"]},
+{"pos":"noun","en":"accommodation","it":"l'alloggio","enAlt":["the accommodation","lodging"],"itAlt":["alloggio","la sistemazione"]},
+{"pos":"noun","en":"overnight stay","it":"il pernottamento","enAlt":["the overnight stay"],"itAlt":["pernottamento"]},
+{"pos":"verb","en":"to board","it":"imbarcarsi","enAlt":["board","to embark"],"itAlt":[]},
+{"pos":"verb","en":"to disembark","it":"sbarcare","enAlt":["disembark","to land"],"itAlt":[]},
+{"pos":"verb","en":"to roam","it":"girovagare","enAlt":["roam","to wander","wander"],"itAlt":["vagare"]},
+{"pos":"adj","en":"remote","it":"remoto","enAlt":["isolated","secluded"],"itAlt":["remota","isolato"]},
+{"pos":"adj","en":"breathtaking","it":"mozzafiato","enAlt":["stunning"],"itAlt":[]},
+{"pos":"adj","en":"unspoiled","it":"incontaminato","enAlt":["pristine","untouched"],"itAlt":["incontaminata"]},
+{"pos":"adj","en":"seasonal","it":"stagionale","enAlt":[],"itAlt":[]}
+]

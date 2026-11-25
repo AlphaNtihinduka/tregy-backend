@@ -1,0 +1,21 @@
+[
+{"pos":"noun","en":"customs","it":"la dogana","enAlt":["the customs"],"itAlt":["dogana"]},
+{"pos":"noun","en":"luggage","it":"il bagaglio","enAlt":["the luggage","baggage"],"itAlt":["bagaglio","i bagagli","bagagli"]},
+{"pos":"noun","en":"flight","it":"il volo","enAlt":["the flight"],"itAlt":["volo"]},
+{"pos":"noun","en":"delay","it":"il ritardo","enAlt":["the delay"],"itAlt":["ritardo"]},
+{"pos":"noun","en":"itinerary","it":"l'itinerario","enAlt":["the itinerary","route"],"itAlt":["itinerario","il percorso"]},
+{"pos":"noun","en":"landscape","it":"il paesaggio","enAlt":["the landscape","scenery"],"itAlt":["paesaggio"]},
+{"pos":"noun","en":"island","it":"l'isola","enAlt":["the island"],"itAlt":["isola"]},
+{"pos":"noun","en":"lake","it":"il lago","enAlt":["the lake"],"itAlt":["lago"]},
+{"pos":"noun","en":"castle","it":"il castello","enAlt":["the castle"],"itAlt":["castello"]},
+{"pos":"noun","en":"guide","it":"la guida","enAlt":["the guide","tour guide"],"itAlt":["guida"]},
+{"pos":"noun","en":"departure","it":"la partenza","enAlt":["the departure"],"itAlt":["partenza"]},
+{"pos":"noun","en":"arrival","it":"l'arrivo","enAlt":["the arrival"],"itAlt":["arrivo"]},
+{"pos":"verb","en":"to cancel","it":"annullare","enAlt":["cancel"],"itAlt":["cancellare"]},
+{"pos":"verb","en":"to rent","it":"noleggiare","enAlt":["rent","to hire"],"itAlt":["affittare"]},
+{"pos":"verb","en":"to explore","it":"esplorare","enAlt":["explore"],"itAlt":[]},
+{"pos":"adj","en":"expensive","it":"caro","enAlt":["costly","pricey"],"itAlt":["cara","costoso"]},
+{"pos":"adj","en":"cheap","it":"economico","enAlt":["inexpensive"],"itAlt":["economica","a buon mercato"]},
+{"pos":"adj","en":"comfortable","it":"comodo","enAlt":["cosy"],"itAlt":["comoda"]},
+{"pos":"adj","en":"local","it":"locale","enAlt":[],"itAlt":[]}
+]

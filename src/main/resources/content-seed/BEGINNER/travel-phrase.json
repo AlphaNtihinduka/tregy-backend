@@ -1,0 +1,16 @@
+[
+{"pos":"phrase","en":"where is the station","it":"dov'è la stazione","enAlt":["where's the station"],"itAlt":["dove è la stazione"]},
+{"pos":"phrase","en":"one ticket, thanks","it":"un biglietto, grazie","enAlt":["one ticket please","a ticket, thanks"],"itAlt":["un biglietto grazie","un biglietto, per favore"]},
+{"pos":"phrase","en":"I have a room","it":"ho una camera","enAlt":["I have a reservation"],"itAlt":["ho una stanza","ho prenotato una camera"]},
+{"pos":"phrase","en":"where is the exit","it":"dov'è l'uscita","enAlt":["where's the exit"],"itAlt":["dove è l'uscita"]},
+{"pos":"phrase","en":"how far is it","it":"quanto è lontano","enAlt":["is it far"],"itAlt":["è lontano","quanto dista"]},
+{"pos":"phrase","en":"what time does it leave","it":"a che ora parte","enAlt":["when does it leave"],"itAlt":["a che ora parte il treno","quando parte"]},
+{"pos":"phrase","en":"I am lost","it":"mi sono perso","enAlt":["I'm lost","I got lost"],"itAlt":["mi sono persa","sono perso"]},
+{"pos":"phrase","en":"I need a map","it":"mi serve una mappa","enAlt":["I need a map please"],"itAlt":["ho bisogno di una mappa","mi serve una cartina"]},
+{"pos":"phrase","en":"I am on vacation","it":"sono in vacanza","enAlt":["I'm on vacation","I'm on holiday","I am on holiday"],"itAlt":["sono in ferie"]},
+{"pos":"phrase","en":"the sea is calm","it":"il mare è calmo","enAlt":[],"itAlt":["il mare e calmo"]},
+{"pos":"phrase","en":"a room for two","it":"una camera per due","enAlt":["a double room"],"itAlt":["una stanza per due","una camera doppia"]},
+{"pos":"phrase","en":"turn left","it":"gira a sinistra","enAlt":["turn to the left"],"itAlt":["giri a sinistra","svolta a sinistra"]},
+{"pos":"phrase","en":"turn right","it":"gira a destra","enAlt":["turn to the right"],"itAlt":["giri a destra","svolta a destra"]},
+{"pos":"phrase","en":"go straight","it":"vai dritto","enAlt":["go straight ahead"],"itAlt":["va dritto","vada dritto","vai diritto"]}
+]

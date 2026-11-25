@@ -1,0 +1,12 @@
+[
+{"pos":"phrase","en":"I would like the menu please","it":"vorrei il menù, per favore","enAlt":["I'd like the menu please","could I have the menu please"],"itAlt":["vorrei il menù per favore","posso avere il menù, per favore"]},
+{"pos":"phrase","en":"what is the dish of the day","it":"qual è il piatto del giorno","enAlt":["what's the dish of the day","what is today's special"],"itAlt":["qual è il piatto del giorno?","qual e il piatto del giorno"]},
+{"pos":"phrase","en":"is it made with meat","it":"è fatto con la carne","enAlt":["does it contain meat","is it made with meat?"],"itAlt":["contiene carne","è fatto con carne"]},
+{"pos":"phrase","en":"I am allergic to nuts","it":"sono allergico alle noci","enAlt":["I'm allergic to nuts","I am allergic to walnuts"],"itAlt":["sono allergica alle noci","sono allergico alla frutta secca"]},
+{"pos":"phrase","en":"could we have the bill","it":"ci porta il conto","enAlt":["can we have the bill","could we get the check"],"itAlt":["ci può portare il conto","possiamo avere il conto"]},
+{"pos":"phrase","en":"the pasta is very good","it":"la pasta è molto buona","enAlt":["the pasta is really good","the pasta is delicious"],"itAlt":["la pasta e molto buona","la pasta è buonissima"]},
+{"pos":"phrase","en":"this needs more salt","it":"ci vuole più sale","enAlt":["this needs a bit more salt","it needs more salt"],"itAlt":["ci vuole piu sale","manca un po' di sale"]},
+{"pos":"phrase","en":"I would like it well done","it":"la vorrei ben cotta","enAlt":["I'd like it well done","well done please"],"itAlt":["lo vorrei ben cotto","la vorrei ben cotta."]},
+{"pos":"phrase","en":"we ordered too much food","it":"abbiamo ordinato troppo cibo","enAlt":["we ordered too much","we ordered way too much food"],"itAlt":["abbiamo ordinato troppo","abbiamo ordinato troppa roba"]},
+{"pos":"phrase","en":"keep the change","it":"tenga il resto","enAlt":["keep the change please","you can keep the change"],"itAlt":["tieni il resto","il resto è per lei"]}
+]

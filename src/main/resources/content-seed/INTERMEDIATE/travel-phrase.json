@@ -1,0 +1,12 @@
+[
+{"pos":"phrase","en":"my flight was cancelled","it":"il mio volo è stato annullato","enAlt":["my flight got cancelled","my flight has been cancelled"],"itAlt":["il mio volo è stato cancellato","il mio volo e stato annullato"]},
+{"pos":"phrase","en":"I missed the last train","it":"ho perso l'ultimo treno","enAlt":["I've missed the last train"],"itAlt":["ho perso l'ultimo treno.","ho mancato l'ultimo treno"]},
+{"pos":"phrase","en":"is there a hotel nearby","it":"c'è un albergo qui vicino","enAlt":["is there a hotel near here","is there a hotel around here"],"itAlt":["c'è un hotel qui vicino","c'è un albergo vicino"]},
+{"pos":"phrase","en":"how long does it take","it":"quanto tempo ci vuole","enAlt":["how long will it take"],"itAlt":["quanto ci vuole","quanto tempo ci mette"]},
+{"pos":"phrase","en":"I would like to rent a car","it":"vorrei noleggiare una macchina","enAlt":["I'd like to rent a car","I want to rent a car"],"itAlt":["vorrei noleggiare un'auto","vorrei affittare una macchina"]},
+{"pos":"phrase","en":"where can I buy tickets","it":"dove posso comprare i biglietti","enAlt":["where can I buy the tickets","where do I buy tickets"],"itAlt":["dove si comprano i biglietti","dove posso acquistare i biglietti"]},
+{"pos":"phrase","en":"does this bus go downtown","it":"questo autobus va in centro","enAlt":["does this bus go to the center","does this bus go to the city center"],"itAlt":["questo bus va in centro","questo autobus va in centro?"]},
+{"pos":"phrase","en":"please wake me at six","it":"mi svegli alle sei, per favore","enAlt":["wake me up at six please","please wake me up at six"],"itAlt":["mi svegli alle sei per favore","mi puoi svegliare alle sei"]},
+{"pos":"phrase","en":"the beach is not far","it":"la spiaggia non è lontana","enAlt":["the beach isn't far","the beach is close"],"itAlt":["la spiaggia non e lontana","la spiaggia è vicina"]},
+{"pos":"phrase","en":"we are staying three nights","it":"restiamo tre notti","enAlt":["we're staying three nights","we are staying for three nights"],"itAlt":["ci fermiamo tre notti","rimaniamo tre notti"]}
+]

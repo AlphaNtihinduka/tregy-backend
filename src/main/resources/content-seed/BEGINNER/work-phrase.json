@@ -1,0 +1,16 @@
+[
+{"pos":"phrase","en":"I work from home","it":"lavoro da casa","enAlt":["I am working from home"],"itAlt":["io lavoro da casa"]},
+{"pos":"phrase","en":"I have a meeting","it":"ho una riunione","enAlt":["I have a meeting today"],"itAlt":["ho una riunione oggi"]},
+{"pos":"phrase","en":"I am at work","it":"sono al lavoro","enAlt":["I'm at work"],"itAlt":["sono in ufficio"]},
+{"pos":"phrase","en":"send me the file","it":"inviami il file","enAlt":["send me the document"],"itAlt":["mandami il file","mandami il documento"]},
+{"pos":"phrase","en":"when is the meeting","it":"quando è la riunione","enAlt":["when's the meeting"],"itAlt":["quando e la riunione"]},
+{"pos":"phrase","en":"I am busy today","it":"oggi sono occupato","enAlt":["I'm busy today","today I am busy"],"itAlt":["sono occupato oggi","oggi sono impegnato","oggi sono occupata"]},
+{"pos":"phrase","en":"call me later","it":"chiamami più tardi","enAlt":["call me back later"],"itAlt":["chiamami dopo","chiamami piu tardi"]},
+{"pos":"phrase","en":"good job","it":"bel lavoro","enAlt":["well done","nice work"],"itAlt":["ottimo lavoro","buon lavoro"]},
+{"pos":"phrase","en":"I need help","it":"ho bisogno di aiuto","enAlt":["I need some help"],"itAlt":["mi serve aiuto","ho bisogno d'aiuto"]},
+{"pos":"phrase","en":"can you help me","it":"puoi aiutarmi","enAlt":["could you help me"],"itAlt":["mi puoi aiutare","può aiutarmi"]},
+{"pos":"phrase","en":"I will write to you","it":"ti scrivo","enAlt":["I'll write to you","I will write you"],"itAlt":["ti scriverò","le scrivo"]},
+{"pos":"phrase","en":"I start at nine","it":"comincio alle nove","enAlt":["I begin at nine"],"itAlt":["inizio alle nove","io comincio alle nove"]},
+{"pos":"phrase","en":"I finish at six","it":"finisco alle sei","enAlt":["I end at six"],"itAlt":["termino alle sei","io finisco alle sei"]},
+{"pos":"phrase","en":"the boss is kind","it":"il capo è gentile","enAlt":["the boss is nice"],"itAlt":["il capo e gentile","il capo è simpatico"]}
+]

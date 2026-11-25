@@ -1,0 +1,21 @@
+[
+{"pos":"noun","en":"hiring","it":"l'assunzione","enAlt":["the hiring","recruitment"],"itAlt":["assunzione"]},
+{"pos":"noun","en":"career","it":"la carriera","enAlt":["the career"],"itAlt":["carriera"]},
+{"pos":"noun","en":"goal","it":"l'obiettivo","enAlt":["the goal","objective","target"],"itAlt":["obiettivo","la meta"]},
+{"pos":"noun","en":"supplier","it":"il fornitore","enAlt":["the supplier"],"itAlt":["fornitore"]},
+{"pos":"noun","en":"invoice","it":"la fattura","enAlt":["the invoice","bill"],"itAlt":["fattura"]},
+{"pos":"noun","en":"quote","it":"il preventivo","enAlt":["the quote","estimate"],"itAlt":["preventivo"]},
+{"pos":"noun","en":"promotion","it":"la promozione","enAlt":["the promotion"],"itAlt":["promozione"]},
+{"pos":"noun","en":"employee","it":"il dipendente","enAlt":["the employee"],"itAlt":["dipendente"]},
+{"pos":"noun","en":"desk","it":"la scrivania","enAlt":["the desk"],"itAlt":["scrivania"]},
+{"pos":"noun","en":"printer","it":"la stampante","enAlt":["the printer"],"itAlt":["stampante"]},
+{"pos":"verb","en":"to manage","it":"gestire","enAlt":["manage","to handle"],"itAlt":["dirigere"]},
+{"pos":"verb","en":"to dismiss","it":"licenziare","enAlt":["dismiss","to fire","fire"],"itAlt":[]},
+{"pos":"verb","en":"to negotiate","it":"negoziare","enAlt":["negotiate"],"itAlt":["trattare"]},
+{"pos":"verb","en":"to attend","it":"partecipare","enAlt":["attend","to take part"],"itAlt":["partecipare a"]},
+{"pos":"verb","en":"to complete","it":"completare","enAlt":["complete"],"itAlt":["portare a termine"]},
+{"pos":"adj","en":"reliable","it":"affidabile","enAlt":["dependable"],"itAlt":[]},
+{"pos":"adj","en":"efficient","it":"efficiente","enAlt":[],"itAlt":[]},
+{"pos":"adj","en":"flexible","it":"flessibile","enAlt":[],"itAlt":[]},
+{"pos":"adj","en":"temporary","it":"temporaneo","enAlt":["temp"],"itAlt":["temporanea","provvisorio"]}
+]

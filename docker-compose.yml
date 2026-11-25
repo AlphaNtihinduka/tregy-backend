@@ -50,6 +50,8 @@ services:
       PUBLIC_APP_URL: ${PUBLIC_APP_URL:-tregy://}
       RESEND_API_KEY: ${RESEND_API_KEY:-}
       EMAIL_FROM: ${EMAIL_FROM:-}
+      GENERATION_PROVIDER: ${GENERATION_PROVIDER:-fake}
+      GENERATION_MODEL_ID: ${GENERATION_MODEL_ID:-fake-model}
     depends_on:
       postgres:
         condition: service_healthy

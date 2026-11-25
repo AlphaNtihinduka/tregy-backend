@@ -1,0 +1,21 @@
+[
+{"pos":"noun","en":"boyfriend","it":"il fidanzato","enAlt":["the boyfriend","girlfriend","the girlfriend","fiancé"],"itAlt":["fidanzato","la fidanzata","fidanzata","il ragazzo"]},
+{"pos":"noun","en":"birthday","it":"il compleanno","enAlt":["the birthday"],"itAlt":["compleanno"]},
+{"pos":"noun","en":"anniversary","it":"l'anniversario","enAlt":["the anniversary"],"itAlt":["anniversario"]},
+{"pos":"noun","en":"secret","it":"il segreto","enAlt":["the secret"],"itAlt":["segreto"]},
+{"pos":"noun","en":"jealousy","it":"la gelosia","enAlt":["the jealousy"],"itAlt":["gelosia"]},
+{"pos":"noun","en":"friendship","it":"l'amicizia","enAlt":["the friendship"],"itAlt":["amicizia"]},
+{"pos":"noun","en":"wish","it":"il desiderio","enAlt":["the wish","desire"],"itAlt":["desiderio"]},
+{"pos":"noun","en":"invitation","it":"l'invito","enAlt":["the invitation"],"itAlt":["invito"]},
+{"pos":"noun","en":"evening out","it":"la serata","enAlt":["the evening out","night out"],"itAlt":["serata"]},
+{"pos":"noun","en":"venue","it":"il locale","enAlt":["the venue","bar","the bar"],"itAlt":["locale"]},
+{"pos":"verb","en":"to flirt","it":"flirtare","enAlt":["flirt"],"itAlt":["fare il filo"]},
+{"pos":"verb","en":"to adore","it":"adorare","enAlt":["adore"],"itAlt":["amare"]},
+{"pos":"verb","en":"to trust","it":"fidarsi","enAlt":["trust"],"itAlt":["avere fiducia"]},
+{"pos":"verb","en":"to break up","it":"lasciarsi","enAlt":["break up","to split up"],"itAlt":[]},
+{"pos":"verb","en":"to apologize","it":"scusarsi","enAlt":["apologize","to apologise"],"itAlt":["chiedere scusa"]},
+{"pos":"adj","en":"faithful","it":"fedele","enAlt":["loyal"],"itAlt":[]},
+{"pos":"adj","en":"sincere","it":"sincero","enAlt":["honest"],"itAlt":["sincera"]},
+{"pos":"adj","en":"charming","it":"affascinante","enAlt":["fascinating"],"itAlt":["charmante"]},
+{"pos":"adj","en":"lonely","it":"solo","enAlt":["alone"],"itAlt":["sola"]}
+]

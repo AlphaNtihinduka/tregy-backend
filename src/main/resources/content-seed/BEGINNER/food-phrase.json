@@ -1,0 +1,16 @@
+[
+{"pos":"phrase","en":"the bill please","it":"il conto per favore","enAlt":["the check please","the bill, please"],"itAlt":["il conto, per favore","il conto, grazie"]},
+{"pos":"phrase","en":"a table for two","it":"un tavolo per due","enAlt":["table for two"],"itAlt":["un tavolo per due persone"]},
+{"pos":"phrase","en":"it is delicious","it":"è delizioso","enAlt":["it's delicious","it is tasty"],"itAlt":["è buonissimo","e delizioso","è squisito"]},
+{"pos":"phrase","en":"I am very hungry","it":"ho molta fame","enAlt":["I'm very hungry","I'm really hungry"],"itAlt":["ho tanta fame","ho una gran fame"]},
+{"pos":"phrase","en":"water, please","it":"acqua, per favore","enAlt":["water please","some water please"],"itAlt":["acqua per favore","dell'acqua, per favore"]},
+{"pos":"phrase","en":"a coffee, please","it":"un caffè, per favore","enAlt":["a coffee please","one coffee please"],"itAlt":["un caffè per favore","un caffè, grazie"]},
+{"pos":"phrase","en":"no sugar, thanks","it":"senza zucchero, grazie","enAlt":["no sugar please","without sugar, thanks"],"itAlt":["senza zucchero grazie","senza zucchero, per favore"]},
+{"pos":"phrase","en":"I like pasta","it":"mi piace la pasta","enAlt":["I love pasta"],"itAlt":["amo la pasta","mi piacciono le paste"]},
+{"pos":"phrase","en":"more bread, please","it":"ancora pane, per favore","enAlt":["more bread please","some more bread please"],"itAlt":["altro pane, per favore","ancora del pane, per favore"]},
+{"pos":"phrase","en":"it is too hot","it":"è troppo caldo","enAlt":["it's too hot"],"itAlt":["e troppo caldo"]},
+{"pos":"phrase","en":"the soup is cold","it":"la zuppa è fredda","enAlt":[],"itAlt":["la zuppa e fredda","la minestra è fredda"]},
+{"pos":"phrase","en":"cheers to you","it":"alla tua salute","enAlt":["to your health","cheers"],"itAlt":["alla salute","cin cin a te"]},
+{"pos":"phrase","en":"let's eat now","it":"mangiamo adesso","enAlt":["let us eat now","shall we eat now"],"itAlt":["mangiamo ora","andiamo a mangiare"]},
+{"pos":"phrase","en":"I am full","it":"sono pieno","enAlt":["I'm full","I am stuffed"],"itAlt":["sono piena","sono sazio"]}
+]

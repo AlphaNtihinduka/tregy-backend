@@ -1,0 +1,17 @@
+[
+{"pos":"phrase","en":"you look nice","it":"stai bene","enAlt":["you look good","you look great"],"itAlt":["stai benissimo","sei elegante"]},
+{"pos":"phrase","en":"you are beautiful","it":"sei bella","enAlt":["you're beautiful","you are pretty"],"itAlt":["sei bello","sei bellissima","sei molto bella"]},
+{"pos":"phrase","en":"I like you","it":"mi piaci","enAlt":[],"itAlt":["tu mi piaci"]},
+{"pos":"phrase","en":"I love you","it":"ti amo","enAlt":[],"itAlt":["ti voglio bene"]},
+{"pos":"phrase","en":"would you like dinner","it":"vuoi cenare con me","enAlt":["do you want dinner with me","would you like dinner with me"],"itAlt":["vuoi cenare insieme","ti va di cenare"]},
+{"pos":"phrase","en":"can I call you","it":"posso chiamarti","enAlt":["may I call you"],"itAlt":["ti posso chiamare","posso telefonarti"]},
+{"pos":"phrase","en":"you have a nice smile","it":"hai un bel sorriso","enAlt":["you have a beautiful smile","you have a lovely smile"],"itAlt":["hai un sorriso bellissimo"]},
+{"pos":"phrase","en":"I miss you","it":"mi manchi","enAlt":[],"itAlt":["mi manchi tanto"]},
+{"pos":"phrase","en":"let's have dinner","it":"ceniamo insieme","enAlt":["let's eat dinner together","shall we have dinner"],"itAlt":["cenamo insieme","andiamo a cena"]},
+{"pos":"phrase","en":"do you want coffee","it":"vuoi un caffè","enAlt":["would you like a coffee","do you want a coffee"],"itAlt":["vuoi del caffè","ti va un caffè"]},
+{"pos":"phrase","en":"I had a good time","it":"mi sono divertito","enAlt":["I had a great time","I enjoyed myself"],"itAlt":["mi sono divertita","mi sono divertito molto"]},
+{"pos":"phrase","en":"kiss me again","it":"baciami ancora","enAlt":["kiss me once more"],"itAlt":["baciami di nuovo"]},
+{"pos":"phrase","en":"you make me laugh","it":"mi fai ridere","enAlt":["you make me smile"],"itAlt":["mi fai sorridere"]},
+{"pos":"phrase","en":"you are very kind","it":"sei molto gentile","enAlt":["you're very kind","you are very nice"],"itAlt":["sei molto carino","sei molto carina"]},
+{"pos":"phrase","en":"see you tonight","it":"ci vediamo stasera","enAlt":["see you this evening"],"itAlt":["a stasera","ci vediamo questa sera"]}
+]

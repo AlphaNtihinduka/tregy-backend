@@ -212,7 +212,7 @@ Any user. Query `page` (default 0) and `size` (default 200, capped at 500). Retu
 
 ## Content generation (operators)
 
-Only `PLATFORM_ADMIN` accounts. Anyone else gets `403`; no token gets `401`. Generation is a server-side batch job: the app never calls a model (ADR 0003). Only a fake provider exists for now (no network, no key).
+Only `PLATFORM_ADMIN` accounts. Anyone else gets `403`; no token gets `401`. Generation is a server-side batch job: the app never calls a model (ADR 0003). Two providers exist (`GENERATION_PROVIDER`): `fake` (a tiny built-in stock, for tests) and `file` (content that people wrote and checked, from `content-seed/`; no network, no key, no cost). A Claude API provider is not built yet. Every item from any provider goes through the same validators.
 
 ### POST /api/v1/platform/generation-runs
 

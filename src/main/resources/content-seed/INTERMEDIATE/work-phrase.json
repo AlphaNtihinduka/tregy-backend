@@ -1,0 +1,12 @@
+[
+{"pos":"phrase","en":"I am applying for a job","it":"sto cercando lavoro","enAlt":["I'm applying for a job","I am applying for work"],"itAlt":["cerco lavoro","sto facendo domanda di lavoro"]},
+{"pos":"phrase","en":"the meeting was postponed","it":"la riunione è stata rinviata","enAlt":["the meeting got postponed","the meeting has been postponed"],"itAlt":["la riunione è stata rimandata","la riunione e stata rinviata"]},
+{"pos":"phrase","en":"I have a job interview tomorrow","it":"domani ho un colloquio di lavoro","enAlt":["tomorrow I have a job interview"],"itAlt":["ho un colloquio di lavoro domani","domani ho un colloquio"]},
+{"pos":"phrase","en":"we need to cut costs","it":"dobbiamo ridurre i costi","enAlt":["we have to cut costs","we must reduce costs"],"itAlt":["dobbiamo tagliare i costi","dobbiamo ridurre le spese"]},
+{"pos":"phrase","en":"please send the invoice","it":"invia la fattura, per favore","enAlt":["send the invoice please","please send me the invoice"],"itAlt":["mi invii la fattura, per favore","manda la fattura per favore"]},
+{"pos":"phrase","en":"he got a promotion","it":"ha ottenuto una promozione","enAlt":["he was promoted","he received a promotion"],"itAlt":["è stato promosso","ha avuto una promozione"]},
+{"pos":"phrase","en":"the deadline is next week","it":"la scadenza è la prossima settimana","enAlt":["the deadline is next week."],"itAlt":["la scadenza è la settimana prossima","la scadenza e la prossima settimana"]},
+{"pos":"phrase","en":"I will take care of it","it":"me ne occupo io","enAlt":["I'll take care of it","I will handle it"],"itAlt":["ci penso io","me ne occuperò io"]},
+{"pos":"phrase","en":"let's schedule a call","it":"fissiamo una chiamata","enAlt":["let's set up a call","let us schedule a call"],"itAlt":["programmiamo una chiamata","organizziamo una chiamata"]},
+{"pos":"phrase","en":"the client is satisfied","it":"il cliente è soddisfatto","enAlt":["the customer is satisfied","the client is happy"],"itAlt":["il cliente è contento","il cliente e soddisfatto"]}
+]

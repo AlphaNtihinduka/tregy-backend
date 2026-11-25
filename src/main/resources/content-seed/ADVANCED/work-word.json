@@ -1,0 +1,23 @@
+[
+{"pos":"noun","en":"dismissal","it":"il licenziamento","enAlt":["the dismissal","firing"],"itAlt":["licenziamento"]},
+{"pos":"noun","en":"negotiation","it":"la trattativa","enAlt":["the negotiation","negotiations"],"itAlt":["trattativa","il negoziato"]},
+{"pos":"noun","en":"budget","it":"il bilancio","enAlt":["the budget","balance sheet"],"itAlt":["bilancio","il preventivo di spesa"]},
+{"pos":"noun","en":"turnover","it":"il fatturato","enAlt":["the turnover","revenue"],"itAlt":["fatturato"]},
+{"pos":"noun","en":"competition","it":"la concorrenza","enAlt":["the competition","competitors"],"itAlt":["concorrenza"]},
+{"pos":"noun","en":"assignment","it":"l'incarico","enAlt":["the assignment","task"],"itAlt":["incarico"]},
+{"pos":"noun","en":"severance pay","it":"la liquidazione","enAlt":["the severance pay","severance"],"itAlt":["liquidazione"]},
+{"pos":"noun","en":"shift","it":"il turno","enAlt":["the shift"],"itAlt":["turno"]},
+{"pos":"noun","en":"internship","it":"il tirocinio","enAlt":["the internship"],"itAlt":["tirocinio","lo stage","stage"]},
+{"pos":"noun","en":"minutes","it":"il verbale","enAlt":["the minutes","record"],"itAlt":["verbale"]},
+{"pos":"noun","en":"duty","it":"la mansione","enAlt":["the duty","job duty","role"],"itAlt":["mansione"]},
+{"pos":"verb","en":"to delegate","it":"delegare","enAlt":["delegate"],"itAlt":[]},
+{"pos":"verb","en":"to outsource","it":"esternalizzare","enAlt":["outsource"],"itAlt":[]},
+{"pos":"verb","en":"to resign","it":"dimettersi","enAlt":["resign","to quit"],"itAlt":[]},
+{"pos":"verb","en":"to oversee","it":"supervisionare","enAlt":["oversee","to supervise"],"itAlt":["sorvegliare"]},
+{"pos":"verb","en":"to implement","it":"attuare","enAlt":["implement","to carry out"],"itAlt":["mettere in atto"]},
+{"pos":"verb","en":"to streamline","it":"snellire","enAlt":["streamline","to simplify"],"itAlt":["semplificare"]},
+{"pos":"adj","en":"ambitious","it":"ambizioso","enAlt":[],"itAlt":["ambiziosa"]},
+{"pos":"adj","en":"accountable","it":"responsabile","enAlt":["responsible"],"itAlt":[]},
+{"pos":"adj","en":"thorough","it":"meticoloso","enAlt":["meticulous"],"itAlt":["meticolosa","accurato"]},
+{"pos":"adj","en":"overworked","it":"sovraccarico","enAlt":["overloaded"],"itAlt":["sovraccarica","oberato di lavoro"]}
+]
